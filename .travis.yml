@@ -30,7 +30,7 @@ before_script:
   - sdkmanager "system-images;$API;default;$ABI"
 #  - android-update-sdk --components=sys-img-$ABI-$API --accept-licenses='android-sdk-license-[0-9a-f]{8}'
   - echo no | avdmanager create avd -f -n test -k "system-images;$API;default;$ABI"
-  - emulator -avd test -no-audio -no-window &
+  - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
 script: TERM=dumb ./gradlew connectedCheck
