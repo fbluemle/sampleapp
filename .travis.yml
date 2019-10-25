@@ -29,7 +29,6 @@ before_script:
   - sdkmanager tools
   - sdkmanager "system-images;$API;default;$ABI"
 #  - android-update-sdk --components=sys-img-$ABI-$API --accept-licenses='android-sdk-license-[0-9a-f]{8}'
-  - android list targets
   - echo no | avdmanager create avd -f -n test -t $API -b $ABI
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
