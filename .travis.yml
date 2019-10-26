@@ -11,15 +11,18 @@ android:
     - build-tools-29.0.2
 env:
   matrix:
-    - API=android-15 ABI=armeabi-v7a
-    - API=android-16 ABI=armeabi-v7a
-    - API=android-17 ABI=armeabi-v7a
-    - API=android-18 ABI=armeabi-v7a
-    - API=android-19 ABI=armeabi-v7a
-    - API=android-21 ABI=armeabi-v7a
-    - API=android-22 ABI=armeabi-v7a
-    - API=android-24 ABI=armeabi-v7a
-    - API=android-24 ABI=arm64-v8a
+    - EMU_PKG=system-images;android-15;default;armeabi-v7a
+    - EMU_PKG=system-images;android-16;default;armeabi-v7a
+    - EMU_PKG=system-images;android-17;default;armeabi-v7a
+    - EMU_PKG=system-images;android-18;default;armeabi-v7a
+    - EMU_PKG=system-images;android-19;default;armeabi-v7a
+    - EMU_PKG=system-images;android-21;default;armeabi-v7a
+    - EMU_PKG=system-images;android-22;default;armeabi-v7a
+    - EMU_PKG=system-images;android-23;default;armeabi-v7a
+    - EMU_PKG=system-images;android-24;default;arm64-v8a
+    - EMU_PKG=system-images;android-24;default;armeabi-v7a
+    - EMU_PKG=system-images;android-25;google_apis;arm64-v8a
+    - EMU_PKG=system-images;android-25;google_apis;armeabi-v7a
 before_script:
   - export ANDROID_SDK_ROOT=$ANDROID_HOME
   - mkdir -p $HOME/.android
@@ -29,9 +32,9 @@ before_script:
   - echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" >> "$ANDROID_HOME/licenses/android-sdk-license"
   - sdkmanager tools
   - sdkmanager --update
-  - sdkmanager "system-images;$API;default;$ABI"
+  - sdkmanager "$EMU_PKG"
 #  - android-update-sdk --components=sys-img-$ABI-$API --accept-licenses='android-sdk-license-[0-9a-f]{8}'
-  - echo no | avdmanager create avd -f -n test -k "system-images;$API;default;$ABI"
+  - echo no | avdmanager create avd -f -n test -k "$EMU_PKG"
   - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
