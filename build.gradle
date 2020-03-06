@@ -8,6 +8,8 @@ buildscript {
     }
 }
 
+this won't compile
+
 allprojects {
     repositories {
         google()
